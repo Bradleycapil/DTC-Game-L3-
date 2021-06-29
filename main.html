@@ -2,7 +2,7 @@
 
 <head>
   <title>Not Sokoban!</title>
- 
+  <script src="player.js"></script>
 </head>
 
 <body>
@@ -16,14 +16,25 @@
     canvasContext = canvas.getContext('2d');
 
     setInterval(mainloop, 1000 / 50);
-  }
+  } // load canvas func
   
+  var pXpos = 0;
+    var pYpos = 0;
+    var pXspeed = 2;
+    var pYspeed = 2;
+    const P_SIZE = 20;
+
+    var player = new Player(pXpos, pYpos, P_SIZE, P_SIZE, 'red', pXspeed, pYspeed);
+   
   function mainloop() {
     colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
+    player.drawRect(); // player
   } // end mainloop func
 
   function colorRect(x, y, w, h, c) {
     canvasContext.fillStyle = c;
     canvasContext.fillRect(x, y, w, h);
-  }
+  }// draw canvasa func 
+
+
 </script>
