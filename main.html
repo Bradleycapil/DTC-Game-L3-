@@ -1,0 +1,29 @@
+<!doctype html>
+
+<head>
+  <title>Not Sokoban!</title>
+ 
+</head>
+
+<body>
+  <canvas id="gameCanvas" width="800" height="600"></canvas>
+</body>
+<script>
+  var canvas, canvasContext;
+
+  window.onload = function () {
+    canvas = document.getElementById('gameCanvas');
+    canvasContext = canvas.getContext('2d');
+
+    setInterval(mainloop, 1000 / 50);
+  }
+  
+  function mainloop() {
+    colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
+  } // end mainloop func
+
+  function colorRect(x, y, w, h, c) {
+    canvasContext.fillStyle = c;
+    canvasContext.fillRect(x, y, w, h);
+  }
+</script>
