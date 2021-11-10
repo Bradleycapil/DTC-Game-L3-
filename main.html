@@ -1,88 +1,119 @@
 <!doctype html>
 
 <head>
-  <title>Not Sokoban!</title>
-  <script src="player.js"></script>
+    <title>Not Sokoban!</title>
+    <script src="player.js"></script>
 </head>
 
 <body>
-  <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
 </body>
 <script>
-  var canvas, canvasContext;
+    var canvas, canvasContext;
 
-  window.onload = function () {
-    canvas = document.getElementById('gameCanvas');
-    canvasContext = canvas.getContext('2d');
+    window.onload = function () {
+        canvas = document.getElementById('gameCanvas');
+        canvasContext = canvas.getContext('2d');
 
-    document.addEventListener('keydown', keyPressed);
-    document.addEventListener('keyup', keyReleased);
+        document.addEventListener('keydown', keyPressed);
+        document.addEventListener('keyup', keyReleased);
 
-    setInterval(mainloop, 1000 / 50);
-  } // load canvas func
-  
-  var pXpos = 0;
-  var pYpos = 0;
-  var pXspeed = 2;
-  var pYspeed = 2;
-  const P_SIZE = 20;
+        setInterval(mainloop, 1000 / speed);
+    } // load canvas func
 
-  // key codes
-  const UP_KEY = 87;
-  const DOWN_KEY = 83;
-  const LEFT_KEY = 65;
-  const RIGHT_KEY = 68;
-  var upPressed = false;
-  var downPressed = false;
-  var leftPressed = false;
-  var rightPressed = false;
+
+    var difficulty = '';
+    var username = '';
+    var pass = false;
+    var speed = 0;
+    while (pass == false) {
+        username = prompt('username');
+
+        difficulty = prompt('Choose difficulty easy medium hard bot?', 'easy medium hard or bot');
+        if (difficulty == 'easy' || difficulty == 'medium' || difficulty == 'hard' || difficulty == 'bot') {
+            pass = true;
+        }
+    }
+
+    if (difficulty == 'easy') { // easy difculty
+        speed = 25;
+    }
+
+    if (difficulty == 'medium') { // medium difculty
+        speed = 30;
+    }
+
+    if (difficulty == 'hard') { // hard difculty
+        speed = 40;
+    }
+    if (difficulty == 'bot') { // bot/asian difculty
+        speed = 60;
+    }
+
+
+
+
+
+    var pXpos = 0;
+    var pYpos = 0;
+    var pXspeed = speed;
+    var pYspeed = speed;
+    const P_SIZE = 20;
+
+    // key codes
+    const UP_KEY = 87;
+    const DOWN_KEY = 83;
+    const LEFT_KEY = 65;
+    const RIGHT_KEY = 68;
+    var upPressed = false;
+    var downPressed = false;
+    var leftPressed = false;
+    var rightPressed = false;
 
 
     var player = new Player(pXpos, pYpos, P_SIZE, P_SIZE, 'red', pXspeed, pYspeed);
-   
-  function mainloop() {
-    colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
-    player.drawRect(); // player
-    player.playerMove(); // player move
-  } // end mainloop func
 
-  
-  function keyPressed(evt){
-    
-    if(evt.keyCode == LEFT_KEY){
-      leftPressed = true;
+    function mainloop() {
+        colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
+        player.drawRect(); // player
+        player.playerMove(); // player move
+    } // end mainloop func
+
+
+    function keyPressed(evt) {
+
+        if (evt.keyCode == LEFT_KEY) {
+            leftPressed = true;
+        }
+        if (evt.keyCode == RIGHT_KEY) {
+            rightPressed = true;
+        }
+        if (evt.keyCode == UP_KEY) {
+            upPressed = true;
+        }
+        if (evt.keyCode == DOWN_KEY) {
+            downPressed = true;
+        }
     }
-    if(evt.keyCode == RIGHT_KEY){
-      rightPressed = true;
+
+    function keyReleased(evt) {
+
+        if (evt.keyCode == LEFT_KEY) {
+            leftPressed = false;
+        }
+        if (evt.keyCode == RIGHT_KEY) {
+            rightPressed = false;
+        }
+        if (evt.keyCode == UP_KEY) {
+            upPressed = false;
+        }
+        if (evt.keyCode == DOWN_KEY) {
+            downPressed = false;
+        }
     }
-    if(evt.keyCode == UP_KEY){
-      upPressed = true;
-    }
-    if(evt.keyCode == DOWN_KEY){
-      downPressed = true;
-    }
-  }
 
-  function keyReleased(evt){
-     
-     if(evt.keyCode == LEFT_KEY){
-       leftPressed = false;
-     }
-     if(evt.keyCode == RIGHT_KEY){
-       rightPressed = false;
-     }
-     if(evt.keyCode == UP_KEY){
-       upPressed = false;
-     }
-     if(evt.keyCode == DOWN_KEY){
-       downPressed = false;
-     }
-   }
-
-  function colorRect(x, y, w, h, c) {
-    canvasContext.fillStyle = c;
-    canvasContext.fillRect(x, y, w, h);
-  }// draw canvasa func 
-
-
+    function colorRect(x, y, w, h, c) {
+        canvasContext.fillStyle = c;
+        canvasContext.fillRect(x, y, w, h);
+    } // draw canvasa func 
 </script>
